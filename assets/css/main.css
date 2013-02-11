@@ -4,7 +4,14 @@
    Author's custom styles
    ========================================================================== */
 
+body {
+    padding-top: 0px;
+}
 
+.modal {
+    width: auto;
+    left: 57%;
+}
 
 
 

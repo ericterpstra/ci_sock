@@ -16,16 +16,42 @@ $(function () {
       this.$numChars = $('#spanNumChars');
       this.$postButton = $('#btnPost');
       this.$myMessages = $('#tblMyMessages tbody');
+      this.$newUserButton = $('#btnModalSubmit');
+      this.$modalWindow = $('#myModal');
     },
 
     bindEvents: function () {
       this.$messageBox.on('input propertychange', this.updateNumChars);
       this.$postButton.on('click', this.postMessage);
+      this.$newUserButton.on('click', this.addNewUser);
     },
 
     /* *************************************
      *             Event Handlers
      * ************************************* */
+
+    addNewUser : function (e) {
+      var formData = {
+        firstName : $('#first_name').val(),
+        lastName  : $('#last_name').val(),
+        email     : $('#email').val(),
+        password1 : $('#password').val(),
+        password2 : $('#password2').val()
+      };
+      // TODO: Client-side validation goes here
+
+      var postUrl = App.baseUrl + '/index.php/main/create_new_user';
+
+      $.ajax({
+        type: "POST",
+        url: postUrl,
+        data: formData,
+        success: App.newUserCreated,
+        error: App.alert,
+        dataType: 'string'
+      })
+
+    },
 
     /**
      * Handler for 'Post New Message' button click.
@@ -64,7 +90,13 @@ $(function () {
       App.$numChars.text(charsLeft);
     },
 
-    /**
+
+    /* *************************************
+     *             AJAX Callbacks
+     * ************************************* */
+
+
+     /**
      * Get the newly posted message back from the server
      * and prepend it to the message list.
      *
@@ -82,6 +114,13 @@ $(function () {
       App.$myMessages.prepend( result );
 
       // Send socket.io notification
+    },
+
+    newUserCreated : function(response) {
+      if ( response ) {
+        App.$modalWindow.modal('hide');
+      }
+      // TODO: if response not true, show server validation errors
     },
 
     alertError : function( error ) {

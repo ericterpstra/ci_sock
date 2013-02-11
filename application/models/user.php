@@ -29,4 +29,13 @@ class user extends CI_Model {
             )
         );
     }
+
+    function  create_new_user( $userData ) {
+      $data['firstName'] = $userData['firstName'];
+      $data['lastName'] = $userData['lastName'];
+      $data['email'] = $userData['email'];
+      $data['password'] = sha1($userData['password1']);
+
+      return $this->db->insert('user',$data);
+    }
 }

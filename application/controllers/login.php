@@ -31,6 +31,11 @@ class login extends CI_Controller {
         $this->load->view('login',$data);
     }
 
+    function logout_user() {
+      $this->session->sess_destroy();
+      $this->index();
+    }
+
     function showphpinfo() {
         echo phpinfo();
     }

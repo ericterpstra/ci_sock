@@ -42,6 +42,19 @@ class main extends CI_Controller{
     } else {
 
     }
+  }
+
+  function create_new_user() {
+    $userInfo = $this->input->post(null,true);
+
+    if( count($userInfo) ) {
+      $this->load->model('user');
+      $saved = $this->user->create_new_user($userInfo);
+    }
+
+    if ( isset($saved) && $saved ) {
+       echo 1;
+    }
 
   }
 
