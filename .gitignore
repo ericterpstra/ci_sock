@@ -1,4 +1,4 @@
-/ci*.*
-/CI*.*
+/ci_*.*
+/CI_*.*
 /atlassian-ide-plugin.xml
 /application/config/database-local.php
