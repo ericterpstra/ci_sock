@@ -4,6 +4,7 @@ $(function () {
 
     baseUrl : '/ci_sock',
     maxCharacters: 320,
+    maxPostsPerPage : 5,
 
     init: function () {
       this.setElements();
@@ -90,6 +91,14 @@ $(function () {
       App.$numChars.text(charsLeft);
     },
 
+    // Update the displayed user message count
+    updateMessageCount : function(numMsgs) {
+      if(numMsgs) {
+        $('.messageCount').each(function(index, el) {
+            $(el).html(parseInt($(el).text()) + 1);
+          });
+      } 
+    },
 
     /* *************************************
      *             AJAX Callbacks
@@ -103,12 +112,20 @@ $(function () {
      * @param result An HTML <tr> string with the new message
      */
     successfulPost : function( result ) {
+      var messageRows = App.$myMessages.children();
+
       // Reset text box
       App.$messageBox.val('');
       App.$numChars.text(App.maxCharacters);
 
       // Remove the last posted message from the list
-      App.$myMessages.children().last().remove();
+      if ( messageRows.length >= App.maxPostsPerPage ) {
+        messageRows.last().remove();
+      } else if ( messageRows.length > 0 && messageRows.length < App.maxPostsPerPage ){
+        App.updateMessageCount( messageRows.length );
+      } else {
+        window.location.reload(true);
+      }
 
       // Put the newly posted message at the top
       App.$myMessages.prepend( result );

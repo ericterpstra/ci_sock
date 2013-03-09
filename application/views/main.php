@@ -37,14 +37,14 @@
 
     <!-- User Info -->
     <div class="row">
-      <div class="span4 offset4 well">
+      <div class="span4 offset1 well">
         <div class="row">
           <div class="span1"><a href="http://critterapp.pagodabox.com/others/admin" class="thumbnail"><img
                 src="http://critterapp.pagodabox.com/img/user.jpg" alt=""></a></div>
           <div class="span3">
             <p><strong> <?php echo $name ?> </strong></p>
             <span class=" badge badge-warning">
-              <?php echo $post_count ?> messages
+              <span class="messageCount"><?php echo $post_count ?></span> messages
             </span>
           </div>
         </div>
@@ -53,7 +53,7 @@
 
     <!-- Message Box -->
     <div class="row">
-      <div class="span4 offset4 well">
+      <div class="span4 offset1 well">
         <textarea class="span4" id="txtNewMessage" name="txtNewMessage"
                   placeholder="Type in your message" rows="5"></textarea>
         <h6 class="pull-right"><span id="spanNumChars">320</span> characters remaining</h6>
@@ -63,12 +63,14 @@
 
     <!-- List of Current User Posts -->
     <div class="row">
-
       <?php if ( $max_posts ) : ?>
-        <div class="span4 offset4">
-          <h4>Last <?php echo count($posts) ?> Messages:</h4>
-        </div>
-        <div class="span4 offset4 well">
+      <div class="span4 offset1">
+        <h4>Last <span class="messageCount"><?php echo count($posts) ?></span> Messages:</h4>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="span4 offset1 well">
           <table id="tblMyMessages" class="table table-condensed table-hover">
             <thead>
             <tr>
@@ -89,7 +91,7 @@
           </table>
         </div>
       <?php else : ?>
-        <div class="span4 offset4">
+        <div class="span4 offset1">
           <h4>You have posted no messages.</h4>
         </div>
       <?php endif; ?>
