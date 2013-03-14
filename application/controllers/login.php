@@ -3,8 +3,8 @@
 class login extends CI_Controller {
 
     function index() {
-        $redis = new Redis();
-        var_dump($redis);
+        //$redis = new Redis();
+        //var_dump($redis);
         if( $this->session->userdata('isLoggedIn') ) {
             redirect('/main/show_main');
         } else {

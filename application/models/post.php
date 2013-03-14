@@ -31,6 +31,18 @@ class post extends CI_Model {
     return false;
   }
 
+  function get_all_posts_not_user( $user_id, $num_posts = 10 ) {
+    $this->db->from('post');
+    $this->db->where_not_in('userId', array($user_id));
+    $this->db->limit( $num_posts );
+    $this->db->order_by('createdDate','desc');
+
+    $posts = $this->db->get()->result_array();
+
+    if( is_array($posts) && count($posts) > 0 ) {
+      return $posts;
+    }
+  }
 
   function get_post_count_for_user( $user_id ) {
 

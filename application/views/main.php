@@ -35,42 +35,42 @@
 
   <div class="container">
 
-    <!-- User Info -->
-    <div class="row">
-      <div class="span4 offset1 well">
-        <div class="row">
-          <div class="span1"><a href="http://critterapp.pagodabox.com/others/admin" class="thumbnail"><img
-                src="http://critterapp.pagodabox.com/img/user.jpg" alt=""></a></div>
-          <div class="span3">
-            <p><strong> <?php echo $name ?> </strong></p>
-            <span class=" badge badge-warning">
-              <span class="messageCount"><?php echo $post_count ?></span> messages
-            </span>
-          </div>
+    <!-- Left Column -->
+    <div class="span5 offset1">
+
+      <!-- User Info -->
+      <div class="row well">
+        <div class="span1"><img
+              src="../../assets/img/avatars/<?php echo $avatar ?>.png" alt=""></a>
+        </div>
+        <div class="span1">
+          <p><strong> <?php echo $name ?> </strong></p>
+          <span class=" badge badge-warning">
+            <span class="messageCount"><?php echo $post_count ?></span> messages
+          </span>
+        </div>
+        <div class="span1">
+          <p><?php echo $tagline ?></p>
         </div>
       </div>
-    </div>
 
-    <!-- Message Box -->
-    <div class="row">
-      <div class="span4 offset1 well">
+
+      <!-- Message Box -->
+      <div class="row well">
         <textarea class="span4" id="txtNewMessage" name="txtNewMessage"
                   placeholder="Type in your message" rows="5"></textarea>
         <h6 class="pull-right"><span id="spanNumChars">320</span> characters remaining</h6>
         <button id="btnPost" class="btn btn-info">Post New Message</button>
       </div>
-    </div>
 
-    <!-- List of Current User Posts -->
-    <div class="row">
+
+      <!-- List of Current User Posts -->
       <?php if ( $max_posts ) : ?>
-      <div class="span4 offset1">
-        <h4>Last <span class="messageCount"><?php echo count($posts) ?></span> Messages:</h4>
-      </div>
-    </div>
+        <div class="row">
+          <h4>Last <span class="messageCount"><?php echo count($posts) ?></span> Messages:</h4>
+        </div>
 
-    <div class="row">
-        <div class="span4 offset1 well">
+        <div class="row well">
           <table id="tblMyMessages" class="table table-condensed table-hover">
             <thead>
             <tr>
@@ -81,23 +81,47 @@
             <tbody>
 
             <?php foreach( $posts as $post ) : ?>
-            <tr>
-              <td><?php echo $post['body'] ?></td>
-              <td><?php echo $post['createdDate'] ?></td>
-            </tr>
+              <tr>
+                <td><?php echo $post['body'] ?></td>
+                <td><?php echo $post['createdDate'] ?></td>
+              </tr>
             <?php endforeach; ?>
 
             </tbody>
           </table>
         </div>
       <?php else : ?>
-        <div class="span4 offset1">
+        <div class="row">
           <h4>You have posted no messages.</h4>
         </div>
       <?php endif; ?>
 
-    </div>
+      </div> <!-- End Left Column -->
 
+      <!-- Right Column -->
+      <div class="span4 offset1">
+      <div class="row">
+        <?php if ( isset($other_posts) ) : ?>
+          <h4>What Others are Saying:</h4>
+          <div>
+            <ul id="ulOtherMessages">
+              <?php foreach( $other_posts as $o_post ) : ?>
+                <li class="liOtherPost well">
+                  <div class="otherPostBody"><?php echo $o_post['body'] ?></div>
+                  <div class="otherPostDate"><?php echo $o_post['createdDate'] ?></div>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        <?php else : ?>
+          <div>
+            <h4>There are no messages from other users!</h4>
+          </div>
+        <?php endif; ?>
+      </div><!-- row -->
+      </div><!-- End Right Column -->
+
+  </div>
   </div>
 
 

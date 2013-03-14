@@ -19,7 +19,7 @@
         <input type="password" id="password" class="span4" name="password" placeholder="Password">
 
         <!--<label class="checkbox">
-      <input type="checkbox" name="remember" value="1"> Remember Me
+          <input type="checkbox" name="remember" value="1"> Remember Me
         </label>-->
 
         <button type="submit" name="submit" class="btn btn-info btn-block">Sign in</button>

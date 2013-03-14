@@ -21,10 +21,17 @@ class main extends CI_Controller{
       $data['posts'] = $posts;
     }
 
+    $other_users_posts = $this->post->get_all_posts_not_user( $user_id );
+    if( $other_users_posts ) {
+      $data['other_posts'] = $other_users_posts;
+    }
+
     $data['max_posts'] = $posts ? count($posts) : 0;
     $data['post_count'] = $this->post->get_post_count_for_user( $user_id );
     $data['email'] = $this->session->userdata('email');
     $data['name'] = $this->session->userdata('name');
+    $data['avatar'] = $this->session->userdata('avatar');
+    $data['tagline'] = $this->session->userdata('tagline');
 
     $this->load->view('main',$data);
   }

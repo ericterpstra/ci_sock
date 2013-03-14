@@ -14,7 +14,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
 
-  <link rel="stylesheet" href="<?php echo base_url();?>/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
   <style>
     body {
       padding-top: 60px;

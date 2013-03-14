@@ -25,6 +25,8 @@ class user extends CI_Model {
                 'id'=>$this->details->id,
                 'name'=> $this->details->firstName . ' ' . $this->details->lastName,
                 'email'=>$this->details->email,
+                'avatar'=>$this->details->avatar,
+                'tagline'=>$this->details->tagline,
                 'isLoggedIn'=>true
             )
         );
