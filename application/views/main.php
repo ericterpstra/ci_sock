@@ -3,18 +3,13 @@
   <div class="navbar">
     <div class="navbar-inner">
       <div class="container-fluid">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
         <a class="brand" href="#" name="top">Post Message App</a>
-        <div class="nav-collapse collapse">
           <ul class="nav">
             <li><a href="#"><i class="icon-home"></i> Home</a></li>
             <li class="divider-vertical"></li>
           </ul>
           <div class="btn-group pull-right">
+            <?php if ($is_admin) : ?>
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
               <i class="icon-wrench"></i> admin	<span class="caret"></span>
             </a>
@@ -23,9 +18,10 @@
               <li class="divider"></li>
               <li><a href="<?php echo base_url() ?>/index.php/login/logout_user"><i class="icon-share"></i> Logout</a></li>
             </ul>
+            <?php else : ?>
+              <a class="btn" href="<?php echo base_url() ?>/index.php/login/logout_user"><i class="icon-share"></i> Logout</a>
+            <?php endif; ?>
           </div>
-        </div>
-        <!--/.nav-collapse -->
       </div>
       <!--/.container-fluid -->
     </div>
@@ -39,17 +35,17 @@
     <div class="span5 offset1">
 
       <!-- User Info -->
-      <div class="row well">
-        <div class="span1"><img
-              src="../../assets/img/avatars/<?php echo $avatar ?>.png" alt=""></a>
-        </div>
+      <div class="row well userInfo">
         <div class="span1">
+          <img src="../../assets/img/avatars/<?php echo $avatar ?>.png" alt="">
+        </div>
+        <div class="span2 userInfoSpan2">
           <p><strong> <?php echo $name ?> </strong></p>
           <span class=" badge badge-warning">
             <span class="messageCount"><?php echo $post_count ?></span> messages
           </span>
         </div>
-        <div class="span1">
+        <div class="span2 userInfoSpan2">
           <p><?php echo $tagline ?></p>
         </div>
       </div>
@@ -74,7 +70,7 @@
           <table id="tblMyMessages" class="table table-condensed table-hover">
             <thead>
             <tr>
-              <th class="span2">Message</th>
+              <th class="span2">Messages</th>
               <th class="span1">Sent</th>
             </tr>
             </thead>
@@ -103,16 +99,23 @@
       <div class="row">
         <?php if ( isset($other_posts) ) : ?>
           <h4>What Others are Saying:</h4>
-          <div>
-            <ul id="ulOtherMessages">
+            <div id="otherMessages">
               <?php foreach( $other_posts as $o_post ) : ?>
-                <li class="liOtherPost well">
-                  <div class="otherPostBody"><?php echo $o_post['body'] ?></div>
-                  <div class="otherPostDate"><?php echo $o_post['createdDate'] ?></div>
-                </li>
+                  <div class="otherPost well">
+                    <div class="otherAvatar">
+                      <img src="../../assets/img/avatars/<?php echo $o_post['avatar'] ?>.png"
+                           alt=""
+                           data-title="<?php echo $o_post['firstName'] ?> <?php echo $o_post['lastName'] ?>"
+                           data-content="<?php echo $o_post['tagline'] ?>" >
+                    </div>
+                    <div class="otherPostInfo">
+                      <div class="otherPostBody"><p></p><?php echo $o_post['body'] ?></p></div>
+                      <hr/>
+                      <div class="otherPostDate"><p class="pull-right"><?php echo $o_post['createdDate'] ?></p></div>
+                    </div>
+                  </div>
               <?php endforeach; ?>
-            </ul>
-          </div>
+            </div>
         <?php else : ?>
           <div>
             <h4>There are no messages from other users!</h4>
@@ -138,6 +141,18 @@
         <p><input type="text" class="span4" name="first_name" id="first_name" placeholder="First Name"></p>
         <p><input type="text" class="span4" name="last_name" id="last_name" placeholder="Last Name"></p>
         <p><input type="text" class="span4" name="email" id="email" placeholder="Email"></p>
+        <p>
+          <select class="span4" name="teamId" id="teamId">
+            <option value="">Team Number...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </p>
+        <p>
+          <label class="checkbox span4">
+            <input type="checkbox" id="isAdmin" name="isAdmin" value="1"> Is an admin?
+          </label>
+        </p>
         <p><input type="password" class="span4" name="password" id="password" placeholder="Password"></p>
         <p><input type="password" class="span4" name="password2" id="password2" placeholder="Confirm Password"></p>
     </div>

@@ -27,6 +27,7 @@ class user extends CI_Model {
                 'email'=>$this->details->email,
                 'avatar'=>$this->details->avatar,
                 'tagline'=>$this->details->tagline,
+                'isAdmin'=>$this->details->isAdmin,
                 'isLoggedIn'=>true
             )
         );
@@ -35,9 +36,24 @@ class user extends CI_Model {
     function  create_new_user( $userData ) {
       $data['firstName'] = $userData['firstName'];
       $data['lastName'] = $userData['lastName'];
+      $data['teamId'] = (int) $userData['teamId'];
+      $data['isAdmin'] = (int) $userData['isAdmin'];
+      $data['avatar'] = $this->getAvatar();
       $data['email'] = $userData['email'];
+      $data['tagline'] = "";
       $data['password'] = sha1($userData['password1']);
 
       return $this->db->insert('user',$data);
+    }
+
+    private function getAvatar() {
+      $avatar_names = array();
+
+      foreach(glob('assets/img/avatars/*.png') as $avatar_filename){
+        $avatar_filename =   str_replace("assets/img/avatars/","",$avatar_filename);
+        array_push($avatar_names, str_replace(".png","",$avatar_filename));
+      }
+
+      return $avatar_names[array_rand($avatar_names)];
     }
 }

@@ -9,7 +9,7 @@ $(function () {
     init: function () {
       this.setElements();
       this.bindEvents();
-
+      this.setupComponents();
     },
 
     setElements: function () {
@@ -19,12 +19,21 @@ $(function () {
       this.$myMessages = $('#tblMyMessages tbody');
       this.$newUserButton = $('#btnModalSubmit');
       this.$modalWindow = $('#myModal');
+      this.$otherPostAvatars = $('.otherAvatar img');
     },
 
     bindEvents: function () {
       this.$messageBox.on('input propertychange', this.updateNumChars);
       this.$postButton.on('click', this.postMessage);
       this.$newUserButton.on('click', this.addNewUser);
+    },
+
+    setupComponents : function () {
+      this.$otherPostAvatars.popover({
+        html:true,
+        placement:'left',
+        trigger: 'hover'
+      });
     },
 
     /* *************************************
@@ -36,6 +45,8 @@ $(function () {
         firstName : $('#first_name').val(),
         lastName  : $('#last_name').val(),
         email     : $('#email').val(),
+        isAdmin   : $('#isAdmin').val(),
+        teamId    : $('#teamId').val(),
         password1 : $('#password').val(),
         password2 : $('#password2').val()
       };
@@ -44,12 +55,12 @@ $(function () {
       var postUrl = App.baseUrl + '/index.php/main/create_new_user';
 
       $.ajax({
-        type: "POST",
+        type: 'POST',
         url: postUrl,
+        dataType: 'text',
         data: formData,
         success: App.newUserCreated,
-        error: App.alert,
-        dataType: 'string'
+        error: App.alertError
       })
 
     },

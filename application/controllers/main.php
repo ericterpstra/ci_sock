@@ -15,6 +15,7 @@ class main extends CI_Controller{
     $this->load->model('post');
 
     $user_id = $this->session->userdata('id');
+    $is_admin = $this->session->userdata('isAdmin');
     $posts = $this->post->get_posts_for_user( $user_id, 5 );
 
     if ($posts) {
@@ -26,6 +27,7 @@ class main extends CI_Controller{
       $data['other_posts'] = $other_users_posts;
     }
 
+    $data['is_admin'] = $is_admin;
     $data['max_posts'] = $posts ? count($posts) : 0;
     $data['post_count'] = $this->post->get_post_count_for_user( $user_id );
     $data['email'] = $this->session->userdata('email');
@@ -60,7 +62,7 @@ class main extends CI_Controller{
     }
 
     if ( isset($saved) && $saved ) {
-       echo 1;
+       echo "success";
     }
 
   }
