@@ -28,6 +28,7 @@ class user extends CI_Model {
                 'avatar'=>$this->details->avatar,
                 'tagline'=>$this->details->tagline,
                 'isAdmin'=>$this->details->isAdmin,
+                'teamId'=>$this->details->teamId,
                 'isLoggedIn'=>true
             )
         );

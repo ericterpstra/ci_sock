@@ -11,18 +11,32 @@ class main extends CI_Controller{
     }
   }
 
+  /**
+   * This is the controller method that drives the application.
+   * After a user logs in, show_main() is called and the main
+   * application screen is set up.
+   */
   function show_main() {
     $this->load->model('post');
 
+    // Get some data from the user's session
     $user_id = $this->session->userdata('id');
     $is_admin = $this->session->userdata('isAdmin');
+    $team_id = $this->session->userdata('teamId');
+
+    // Load all of the logged-in user's posts
     $posts = $this->post->get_posts_for_user( $user_id, 5 );
 
+    // If posts were fetched from the database, assign them to $data
+    // so they can be passed into the view.
     if ($posts) {
       $data['posts'] = $posts;
     }
 
-    $other_users_posts = $this->post->get_all_posts_not_user( $user_id );
+    // Load posts based on the user's permission. Admins can see
+    // everything, and regular users can only see posts from
+    // their own team.
+    $other_users_posts = $this->post->get_all_other_posts( $user_id, $team_id, $is_admin );
     if( $other_users_posts ) {
       $data['other_posts'] = $other_users_posts;
     }

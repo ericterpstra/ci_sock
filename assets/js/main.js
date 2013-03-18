@@ -2,6 +2,7 @@ $(function () {
 
   var App = {
 
+    //TODO: Find a better way to set these from config.php
     baseUrl : '/ci_sock',
     maxCharacters: 320,
     maxPostsPerPage : 5,
@@ -12,6 +13,7 @@ $(function () {
       this.setupComponents();
     },
 
+    // Cache all the jQuery selectors for easy reference.
     setElements: function () {
       this.$messageBox = $('#txtNewMessage');
       this.$numChars = $('#spanNumChars');
@@ -22,13 +24,16 @@ $(function () {
       this.$otherPostAvatars = $('.otherAvatar img');
     },
 
+    // Bind document events and assign event handlers.
     bindEvents: function () {
       this.$messageBox.on('input propertychange', this.updateNumChars);
       this.$postButton.on('click', this.postMessage);
       this.$newUserButton.on('click', this.addNewUser);
     },
 
+    // Initialize any extra UI components
     setupComponents : function () {
+      // Set up the popovers when hovering over another user's avatar.
       this.$otherPostAvatars.popover({
         html:true,
         placement:'left',
@@ -40,6 +45,14 @@ $(function () {
      *             Event Handlers
      * ************************************* */
 
+    /**
+     * Click handler for the Create button in
+     * the New User modal window. It grabs data
+     * from the form and submits it to the
+     * create_new_user function in the Main controller.
+     *
+     * @param e event
+     */
     addNewUser : function (e) {
       var formData = {
         firstName : $('#first_name').val(),
