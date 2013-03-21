@@ -1,7 +1,7 @@
 <?php
 
 
-class user extends CI_Model {
+class user_m extends CI_Model {
 
     var $details;
 
@@ -45,6 +45,12 @@ class user extends CI_Model {
       $data['password'] = sha1($userData['password1']);
 
       return $this->db->insert('user',$data);
+    }
+
+    public function update_tagline( $user_id, $tagline ) {
+      $data = array('tagline'=>$tagline);
+      $result = $this->db->update('user', $data, array('id'=>$user_id));
+      return $result;
     }
 
     private function getAvatar() {

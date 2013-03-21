@@ -46,7 +46,7 @@
           </span>
         </div>
         <div class="span2 userInfoSpan2">
-          <p><?php echo $tagline ?></p>
+          <p id="pTagline" contenteditable="true"><?php echo $tagline ?></p>
         </div>
         <div class="userTeamBadge">
           Team: <span class="badge badge-info"><?php echo $teamId ?></span>
@@ -154,7 +154,7 @@
         </p>
         <p>
           <label class="checkbox span4">
-            <input type="checkbox" id="isAdmin" name="isAdmin" value="1"> Is an admin?
+            <input type="checkbox" id="isAdmin" name="isAdmin"> Is an admin?
           </label>
         </p>
         <p><input type="password" class="span4" name="password" id="password" placeholder="Password"></p>

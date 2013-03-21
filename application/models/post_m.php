@@ -1,6 +1,6 @@
 <?php
 
-class post extends CI_Model {
+class post_m extends CI_Model {
 
   function save_post( $body ) {
 

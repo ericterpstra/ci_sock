@@ -17,7 +17,7 @@ class main extends CI_Controller{
    * application screen is set up.
    */
   function show_main() {
-    $this->load->model('post');
+    $this->load->model('post_m');
 
     // Get some data from the user's session
     $user_id = $this->session->userdata('id');
@@ -25,7 +25,7 @@ class main extends CI_Controller{
     $team_id = $this->session->userdata('teamId');
 
     // Load all of the logged-in user's posts
-    $posts = $this->post->get_posts_for_user( $user_id, 5 );
+    $posts = $this->post_m->get_posts_for_user( $user_id, 5 );
 
     // If posts were fetched from the database, assign them to $data
     // so they can be passed into the view.
@@ -36,14 +36,14 @@ class main extends CI_Controller{
     // Load posts based on the user's permission. Admins can see
     // everything, and regular users can only see posts from
     // their own team.
-    $other_users_posts = $this->post->get_all_other_posts( $user_id, $team_id, $is_admin );
+    $other_users_posts = $this->post_m->get_all_other_posts( $user_id, $team_id, $is_admin );
     if( $other_users_posts ) {
       $data['other_posts'] = $other_users_posts;
     }
 
     $data['is_admin'] = $is_admin;
     $data['max_posts'] = $posts ? count($posts) : 0;
-    $data['post_count'] = $this->post->get_post_count_for_user( $user_id );
+    $data['post_count'] = $this->post_m->get_post_count_for_user( $user_id );
     $data['email'] = $this->session->userdata('email');
     $data['name'] = $this->session->userdata('name');
     $data['avatar'] = $this->session->userdata('avatar');
@@ -58,7 +58,7 @@ class main extends CI_Controller{
 
     if ( $message ) {
       $this->load->model('post');
-      $saved = $this->post->save_post($message);
+      $saved = $this->post_m->save_post($message);
     }
 
     if ( isset($saved) && $saved ) {
@@ -73,13 +73,27 @@ class main extends CI_Controller{
 
     if( count($userInfo) ) {
       $this->load->model('user');
-      $saved = $this->user->create_new_user($userInfo);
+      $saved = $this->user_m->create_new_user($userInfo);
     }
 
     if ( isset($saved) && $saved ) {
        echo "success";
     }
+  }
 
+  function update_tagline() {
+    $new_tagline = $this->input->post('message');
+    $user_id = $this->session->userdata('id');
+
+    if( isset($new_tagline) && $new_tagline != "" ) {
+      $this->load->model('user_m');
+      $saved = $this->user_m->update_tagline($user_id, $new_tagline);
+    }
+
+    if ( isset($saved) && $saved ) {
+      $this->session->set_userdata(array('tagline'=>$new_tagline));
+      echo "success";
+    }
   }
 
 }

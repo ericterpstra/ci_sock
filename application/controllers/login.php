@@ -13,13 +13,13 @@ class login extends CI_Controller {
     }
 
     function login_user() {
-        $this->load->model('user');
+        $this->load->model('user_m');
         $email = $this->input->post('email');
 
         $pass  = $this->input->post('password');
         $login = false;
 
-        if( $email && $pass && $this->user->validate_user($email,$pass)) {
+        if( $email && $pass && $this->user_m->validate_user($email,$pass)) {
             redirect('/main/show_main');
         } else {
             $this->show_login(true);

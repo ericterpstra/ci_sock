@@ -22,6 +22,8 @@ $(function () {
       this.$newUserButton = $('#btnModalSubmit');
       this.$modalWindow = $('#myModal');
       this.$otherPostAvatars = $('.otherAvatar img');
+      this.$tagline = $('#pTagline');
+      this.$taglineText = this.$tagline.html();
     },
 
     // Bind document events and assign event handlers.
@@ -29,6 +31,7 @@ $(function () {
       this.$messageBox.on('input propertychange', this.updateNumChars);
       this.$postButton.on('click', this.postMessage);
       this.$newUserButton.on('click', this.addNewUser);
+      this.$tagline.on('blur',this.saveTagline);
     },
 
     // Initialize any extra UI components
@@ -58,7 +61,7 @@ $(function () {
         firstName : $('#first_name').val(),
         lastName  : $('#last_name').val(),
         email     : $('#email').val(),
-        isAdmin   : $('#isAdmin').val(),
+        isAdmin   : $('#isAdmin').is(':checked'),
         teamId    : $('#teamId').val(),
         password1 : $('#password').val(),
         password2 : $('#password2').val()
@@ -97,7 +100,7 @@ $(function () {
           success: App.successfulPost,
           error: App.alertError,
           dataType: 'html'
-        })
+        });
       }
     },
 
@@ -121,7 +124,23 @@ $(function () {
         $('.messageCount').each(function(index, el) {
             $(el).html(parseInt($(el).text()) + 1);
           });
-      } 
+      }
+    },
+
+    // Update the tagline if it changed
+    saveTagline : function(e) {
+      var newText = $(this).html();
+      if( App.$taglineText !== newText ) {
+        var postUrl = App.baseUrl + '/index.php/main/update_tagline';
+        $.ajax({
+          type: "POST",
+          url: postUrl,
+          data: {message : newText},
+          success: function(res){App.$taglineText=newText;},
+          error: App.alertError,
+          dataType: 'html'
+        });
+      }
     },
 
     /* *************************************
