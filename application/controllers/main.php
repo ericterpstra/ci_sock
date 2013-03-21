@@ -48,6 +48,7 @@ class main extends CI_Controller{
     $data['name'] = $this->session->userdata('name');
     $data['avatar'] = $this->session->userdata('avatar');
     $data['tagline'] = $this->session->userdata('tagline');
+    $data['teamId'] = $this->session->userdata('teamId');
 
     $this->load->view('main',$data);
   }

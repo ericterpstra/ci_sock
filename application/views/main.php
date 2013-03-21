@@ -48,6 +48,10 @@
         <div class="span2 userInfoSpan2">
           <p><?php echo $tagline ?></p>
         </div>
+        <div class="userTeamBadge">
+          Team: <span class="badge badge-info"><?php echo $teamId ?></span>
+          <?php if($is_admin) :?><span class="badge badge-info">Admin</span><?php endif ?>
+        </div>
       </div>
 
 
@@ -105,7 +109,7 @@
                     <div class="otherAvatar">
                       <img src="../../assets/img/avatars/<?php echo $o_post['avatar'] ?>.png"
                            alt=""
-                           data-title="<?php echo $o_post['firstName'] ?> <?php echo $o_post['lastName'] ?>"
+                           data-title="&lt;span class='badge badge-info'&gt;<?php echo $teamId ?>&lt;/span&gt; <?php echo $o_post['firstName'] ?> <?php echo $o_post['lastName'] ?>"
                            data-content="<?php echo $o_post['tagline'] ?>" >
                     </div>
                     <div class="otherPostInfo">
