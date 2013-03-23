@@ -24,6 +24,8 @@ $(function () {
       this.$otherPostAvatars = $('.otherAvatar img');
       this.$tagline = $('#pTagline');
       this.$taglineText = this.$tagline.html();
+      this.$totalMessageCount = $('.totalMessageCount');
+      this.$messageCount = $('.messageCount');
     },
 
     // Bind document events and assign event handlers.
@@ -118,16 +120,29 @@ $(function () {
       App.$numChars.text(charsLeft);
     },
 
-    // Update the displayed user message count
-    updateMessageCount : function(numMsgs) {
-      if(numMsgs) {
-        $('.messageCount').each(function(index, el) {
-            $(el).html(parseInt($(el).text()) + 1);
-          });
+    /**
+     * Update the user's number of messages label after adding
+     * a new message.
+     */
+    updateMessageCount : function() {
+      var tMessages = parseInt( App.$totalMessageCount.text() );
+      var messages = parseInt( App.$messageCount.text() );
+
+      App.$totalMessageCount.text( tMessages + 1 );
+
+      // If the messages list has less than 5 messages, update the count label
+      if ( messages >= 0 && messages < App.maxPostsPerPage ) {
+        App.$messageCount.text( messages + 1 );
       }
     },
 
-    // Update the tagline if it changed
+    /**
+     * The user clicked the tagline area and changed some text.
+     * This will save the changed text to the server and update the
+     * cached tagline.
+     *
+     * @param e
+     */
     saveTagline : function(e) {
       var newText = $(this).html();
       if( App.$taglineText !== newText ) {
@@ -164,11 +179,11 @@ $(function () {
       // Remove the last posted message from the list
       if ( messageRows.length >= App.maxPostsPerPage ) {
         messageRows.last().remove();
-      } else if ( messageRows.length > 0 && messageRows.length < App.maxPostsPerPage ){
-        App.updateMessageCount( messageRows.length );
-      } else {
+      } else if (messageRows.length <= 1) {
         window.location.reload(true);
       }
+
+      App.updateMessageCount();
 
       // Put the newly posted message at the top
       App.$myMessages.prepend( result );
@@ -176,6 +191,10 @@ $(function () {
       // Send socket.io notification
     },
 
+    /**
+     * A new user has been created, and the server has responded (or errored)
+     * @param response
+     */
     newUserCreated : function(response) {
       if ( response ) {
         App.$modalWindow.modal('hide');
@@ -183,6 +202,10 @@ $(function () {
       // TODO: if response not true, show server validation errors
     },
 
+    /**
+     * Util method for blasting an error message on the screen.
+     * @param error
+     */
     alertError : function( error ) {
        var args = arguments;
        var msg = error.responseText;

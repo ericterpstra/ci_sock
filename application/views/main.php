@@ -42,7 +42,7 @@
         <div class="span2 userInfoSpan2">
           <p><strong> <?php echo $name ?> </strong></p>
           <span class=" badge badge-warning">
-            <span class="messageCount"><?php echo $post_count ?></span> messages
+            <span class="totalMessageCount"><?php echo $post_count ?></span> messages
           </span>
         </div>
         <div class="span2 userInfoSpan2">

@@ -57,7 +57,7 @@ class main extends CI_Controller{
     $message = $this->input->post('message');
 
     if ( $message ) {
-      $this->load->model('post');
+      $this->load->model('post_m');
       $saved = $this->post_m->save_post($message);
     }
 
@@ -72,7 +72,7 @@ class main extends CI_Controller{
     $userInfo = $this->input->post(null,true);
 
     if( count($userInfo) ) {
-      $this->load->model('user');
+      $this->load->model('user_m');
       $saved = $this->user_m->create_new_user($userInfo);
     }
 
