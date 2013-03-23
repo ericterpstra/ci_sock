@@ -9,5 +9,5 @@ There is a very simple login/auth mechanism that uses the CodeIgniter Session he
 Check out the files into "ci\_sock" subdirectory of your webroot. Import the cisock.sql database into MySQL.  Edit the hostname, username, and password of your database in /application/config/database.php.  Edit the $config['base\_url'] in /application/config/config.php to match your localhost url (e.g. http://localhost/ci\_sock/).  
 
 The login info for user 1 is:
-login: eterps@gmail.com
+login: admin@example.com
 pass:  password
