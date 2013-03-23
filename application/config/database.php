@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'password';
-$db['default']['database'] = 'cisock';
+$db['default']['username'] = '';
+$db['default']['password'] = '';
+$db['default']['database'] = '';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
@@ -64,6 +64,8 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
+if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/ci_sock/application/config/database-local.php'))
+  include 'database-local.php';
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

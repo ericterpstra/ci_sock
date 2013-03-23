@@ -109,7 +109,7 @@
                     <div class="otherAvatar">
                       <img src="../../assets/img/avatars/<?php echo $o_post['avatar'] ?>.png"
                            alt=""
-                           data-title="&lt;span class='badge badge-info'&gt;<?php echo $teamId ?>&lt;/span&gt; <?php echo $o_post['firstName'] ?> <?php echo $o_post['lastName'] ?>"
+                           data-title="&lt;span class='badge badge-info'&gt;<?php echo $o_post['teamId'] ?>&lt;/span&gt; <?php echo $o_post['firstName'] ?> <?php echo $o_post['lastName'] ?>"
                            data-content="<?php echo $o_post['tagline'] ?>" >
                     </div>
                     <div class="otherPostInfo">
