@@ -41,7 +41,7 @@ class user_m extends CI_Model {
       $data['isAdmin'] = (int) $userData['isAdmin'];
       $data['avatar'] = $this->getAvatar();
       $data['email'] = $userData['email'];
-      $data['tagline'] = "";
+      $data['tagline'] = "Click here to edit tagline.";
       $data['password'] = sha1($userData['password1']);
 
       return $this->db->insert('user',$data);

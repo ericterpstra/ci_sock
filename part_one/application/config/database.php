@@ -64,7 +64,7 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/ci_sock/application/config/database-local.php'))
+if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/ci_sock/part_one/application/config/database-local.php'))
   include 'database-local.php';
 
 /* End of file database.php */

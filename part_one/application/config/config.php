@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://127.0.0.1/ci_sock/';
+$config['base_url']	= 'http://127.0.0.1/ci_sock/part_one/';
 
 /*
 |--------------------------------------------------------------------------
