@@ -27,6 +27,16 @@
         </form>
       </div>
     </div>
+
+    <div class="row">
+      <div class="span6 offset4">
+        <p><strong>Admin user email:</strong> admin@example.com</p>
+        <p><strong>Team 1 user email:</strong> bb@example.com</p>
+        <p><strong>Team 2 user email:</strong> jj@example.com</p>
+        <p>The password for each user is 'password'</p>
+        <p>The database is reset every night.</p>
+      </div>
+    </div>
   </div>
 
 <?php include 'footer.php' ?>
