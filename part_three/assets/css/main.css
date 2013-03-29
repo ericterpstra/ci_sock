@@ -1,0 +1,76 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+body {
+    padding-top: 0px;
+    line-height: 16px;
+}
+
+hr {
+    margin: 1px;
+}
+.modal {
+    width: auto;
+    left: 57%;
+}
+
+label.checkbox {
+    float: none;
+    margin-top: -6px;
+    margin-bottom: 15px;
+    margin-left: 1px;
+    width: 280px;
+}
+
+.userInfo {
+    padding: 10px 0px;
+}
+
+.userInfoSpan2 {
+    margin-left: 10px;
+    font-size: 13px;
+    font-style: italic;
+}
+
+.userTeamBadge {
+    float: right;
+    margin-right: 6px;
+}
+
+.otherPost{
+    margin: 0px 0px 5px 0px;
+    padding: 4px;
+    display: block;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.otherAvatar, .otherPostBody {
+    margin-left: 10px;
+}
+
+.otherAvatar {
+    width: 20%;
+    float: left;
+}
+
+.otherPostInfo {
+    width: 100%;
+
+}
+
+.otherPostDate {
+    font-size: 88%;
+}
+
+
+
+
+
+
+
+
