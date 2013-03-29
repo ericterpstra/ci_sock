@@ -358,6 +358,19 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 
+/*
+|--------------------------------------------------------------------------
+| Configure Redis Connection
+|--------------------------------------------------------------------------
+|
+| When using the Redis enabled MY_Session class, configure the connection
+| information to the appropriate Redis instance below.
+|
+*/
+$config['redis_host'] = 'localhost';
+$config['redis_port'] = '6379';
+
+
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
