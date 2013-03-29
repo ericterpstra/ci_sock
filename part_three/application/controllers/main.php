@@ -18,6 +18,7 @@ class main extends CI_Controller{
    */
   function show_main() {
     $this->load->model('post_m');
+    $this->load->model('user_m');
 
     // Get some data from the user's session
     $user_id = $this->session->userdata('id');
@@ -44,16 +45,13 @@ class main extends CI_Controller{
     $data['is_admin'] = $is_admin;
     $data['max_posts'] = $posts ? count($posts) : 0;
     $data['post_count'] = $this->post_m->get_post_count_for_user( $user_id );
-    $data['email'] = $this->session->userdata('email');
-    $data['name'] = $this->session->userdata('name');
-    $data['avatar'] = $this->session->userdata('avatar');
-    $data['tagline'] = $this->session->userdata('tagline');
-    $data['teamId'] = $this->session->userdata('teamId');
+    $data = $this->user_m->fill_session_data($data);
 
     $this->load->view('main',$data);
   }
 
   function post_message() {
+    $this->load->model('user_m');
     $message = $this->input->post('message');
 
     if ( $message ) {
@@ -62,7 +60,22 @@ class main extends CI_Controller{
     }
 
     if ( isset($saved) && $saved ) {
-       echo "<tr><td>". $saved['body'] ."</td><td>". $saved['createdDate'] ."</td></tr>";
+
+      $post_data = array();
+      $post_data = $this->user_m->fill_session_data($post_data);
+      $post_data['body'] = $saved['body'];
+      $post_data['createdDate'] = $saved['createdDate'];
+      $broadcastMessage = $this->load->view('single_post',$post_data,true);
+
+      $myMessage = "<tr><td>". $saved['body'] ."</td><td>". $saved['createdDate'] ."</td></tr>";
+
+
+      $output = array('myMessage'=>$myMessage,'broadcastMessage'=>$broadcastMessage);
+      $this->output->set_content_type('application/json');
+      $output = json_encode($output);
+      //echo $output;
+      $this->output->set_output($output);
+       //echo "<tr><td>". $saved['body'] ."</td><td>". $saved['createdDate'] ."</td></tr>";
     } else {
 
     }

@@ -101,7 +101,7 @@ $(function () {
           data: {message : messageText},
           success: App.successfulPost,
           error: App.alertError,
-          dataType: 'html'
+          dataType: "json"
         });
       }
     },
@@ -186,9 +186,10 @@ $(function () {
       App.updateMessageCount();
 
       // Put the newly posted message at the top
-      App.$myMessages.prepend( result );
+      App.$myMessages.prepend( result.myMessage );
 
       // Send socket.io notification
+      MY_Socket.sendMessage( result.broadcastMessage );
     },
 
     /**

@@ -32,6 +32,8 @@ class user_m extends CI_Model {
         // to CodeIgniter, others are added.  See CodeIgniter's documentation for details.
         $this->session->set_userdata( array(
                 'id'=>$this->details->id,
+                'firstName'=>$this->details->firstName,
+                'lastName'=>$this->details->lastName,
                 'name'=> $this->details->firstName . ' ' . $this->details->lastName,
                 'email'=>$this->details->email,
                 'avatar'=>$this->details->avatar,
@@ -41,6 +43,17 @@ class user_m extends CI_Model {
                 'isLoggedIn'=>true
             )
         );
+    }
+
+    function fill_session_data($data){
+      $data['email'] = $this->session->userdata('email');
+      $data['firstName'] = $this->session->userdata('firstName');
+      $data['lastName'] = $this->session->userdata('lastName');
+      $data['name'] = $this->session->userdata('name');
+      $data['avatar'] = $this->session->userdata('avatar');
+      $data['tagline'] = $this->session->userdata('tagline');
+      $data['teamId'] = $this->session->userdata('teamId');
+      return $data;
     }
 
     function  create_new_user( $userData ) {
