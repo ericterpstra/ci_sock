@@ -70,7 +70,7 @@ class main extends CI_Controller{
       $myMessage = "<tr><td>". $saved['body'] ."</td><td>". $saved['createdDate'] ."</td></tr>";
 
 
-      $output = array('myMessage'=>$myMessage,'broadcastMessage'=>$broadcastMessage);
+      $output = array('myMessage'=>$myMessage,'broadcastMessage'=>$broadcastMessage,'team'=>$post_data['teamId']);
       $this->output->set_content_type('application/json');
       $output = json_encode($output);
       //echo $output;

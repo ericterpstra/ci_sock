@@ -1,4 +1,11 @@
 <?php $this->load->view('header') ?>
+  <script type="text/javascript">
+    $(function() {
+      App.team = <?php echo $teamId; ?>;
+      App.isAdmin = <?php echo $is_admin; ?>;
+      MY_Socket.joinRoom(App.team, App.isAdmin);
+    });
+  </script>
 
   <div class="navbar">
     <div class="navbar-inner">

@@ -1,6 +1,6 @@
 $(function () {
 
-  var App = {
+  window.App = {
 
     //TODO: Find a better way to set these from config.php
     baseUrl : '/ci_sock/part_three/',
@@ -21,6 +21,7 @@ $(function () {
       this.$myMessages = $('#tblMyMessages tbody');
       this.$newUserButton = $('#btnModalSubmit');
       this.$modalWindow = $('#myModal');
+      this.$otherMessages = $('#otherMessages');
       this.$otherPostAvatars = $('.otherAvatar img');
       this.$tagline = $('#pTagline');
       this.$taglineText = this.$tagline.html();
@@ -39,7 +40,7 @@ $(function () {
     // Initialize any extra UI components
     setupComponents : function () {
       // Set up the popovers when hovering over another user's avatar.
-      this.$otherPostAvatars.popover({
+      App.$otherPostAvatars.popover({
         html:true,
         placement:'left',
         trigger: 'hover'
@@ -189,7 +190,7 @@ $(function () {
       App.$myMessages.prepend( result.myMessage );
 
       // Send socket.io notification
-      MY_Socket.sendMessage( result.broadcastMessage );
+      MY_Socket.sendNewPost( result.broadcastMessage, result.team );
     },
 
     /**
@@ -210,9 +211,20 @@ $(function () {
     alertError : function( error ) {
        var args = arguments;
        var msg = error.responseText;
-    }
+    },
 
-  };
+
+    /* *************************************
+     *            Real-Time Stuff
+     * ************************************* */
+
+     showBroadcastedMessage : function(messageData) {
+       $(messageData).hide().prependTo(App.$otherMessages).slideDown('slow');
+       //App.$otherMessages.prepend(messageData);
+       App.setElements();
+       App.setupComponents();
+     }
+   };
 
   App.init();
 
