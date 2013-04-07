@@ -31,7 +31,7 @@
   <script src="<?php echo base_url();?>/assets/js/vendor/bootstrap.min.js"></script>
   <script src="<?php echo base_url();?>/nodejs/node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.min.js"></script>
 
-  <script src="<?php echo base_url();?>/assets/js/main.js"></script>
   <script src="<?php echo base_url();?>/assets/js/socket.js"></script>
+  <script src="<?php echo base_url();?>/assets/js/main.js"></script>
 </head>
 <body>

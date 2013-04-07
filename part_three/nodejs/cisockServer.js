@@ -12,29 +12,29 @@ io.sockets.on('connection', function (socket) {
     //console.log(post);
     console.log('Broadcasting a post to team: ' + team.toString());
 
-    rClient.keys('*',function (err, keys) {
-      if (err) return console.log(err);
-
-      for(var i = 0, len = keys.length; i < len; i++) {
-          console.log(keys[i]);
-      }
-    });
-
     var broadcastData = {message: post, team: team};
     socket.broadcast.to(team.toString()).emit('broadcastNewPost',broadcastData);
     broadcastData.team = 'admin';
     socket.broadcast.to('admin').emit('broadcastNewPost',broadcastData);
   });
 
-  socket.on('joinRoom', function(team,isAdmin){
-    console.log('Joining room ' + team.toString());
-    socket.join(team.toString());
+  socket.on('joinRoom', function(sessionId){
+    var parsedRes, team, isAdmin;
 
+    rClient.get('sessions:'+sessionId, function(err,res){
+      console.log(res);
+      parsedRes = JSON.parse(res);
+      team = parsedRes.teamId;
+      isAdmin = parsedRes.isAdmin;
 
-    if (isAdmin) {
-      console.log('Joining room for Admins');
-      socket.join('admin');
-    }
+      console.log('Joining room ' + team.toString());
+      socket.join(team.toString());
+
+      if (isAdmin) {
+        console.log('Joining room for Admins');
+        socket.join('admin');
+      }
+    });
 
   });
 });

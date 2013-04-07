@@ -11,6 +11,11 @@ $(function () {
       this.setElements();
       this.bindEvents();
       this.setupComponents();
+
+      // Join a room if main page is loaded and user is part of a team
+      if($('.userTeamBadge').children().length > 0){
+        MY_Socket.joinRoom();
+      }
     },
 
     // Cache all the jQuery selectors for easy reference.
