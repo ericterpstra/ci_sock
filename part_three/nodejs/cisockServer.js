@@ -1,5 +1,7 @@
 
-var io = require('socket.io').listen(8080);
+var io = require('socket.io').listen(8080,{
+  'log level':1
+});
 var redis = require('redis');
 
 io.sockets.on('connection', function (socket) {
