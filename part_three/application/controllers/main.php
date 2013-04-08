@@ -60,22 +60,29 @@ class main extends CI_Controller{
     }
 
     if ( isset($saved) && $saved ) {
-
+      // Gather up data to fill the message template
       $post_data = array();
       $post_data = $this->user_m->fill_session_data($post_data);
       $post_data['body'] = $saved['body'];
       $post_data['createdDate'] = $saved['createdDate'];
+
+      // Create a message html partial from the 'single_post' template and $post_data
       $broadcastMessage = $this->load->view('single_post',$post_data,true);
 
+      // Create an html snipped for the user's message table.
       $myMessage = "<tr><td>". $saved['body'] ."</td><td>". $saved['createdDate'] ."</td></tr>";
 
+      // Create some data to return to the client.
+      $output = array('myMessage'=>$myMessage,
+                      'broadcastMessage'=>$broadcastMessage,
+                      'team'=>$post_data['teamId']);
 
-      $output = array('myMessage'=>$myMessage,'broadcastMessage'=>$broadcastMessage,'team'=>$post_data['teamId']);
+      // Encode the data into JSON
       $this->output->set_content_type('application/json');
       $output = json_encode($output);
-      //echo $output;
+
+      // Send the data back to the client
       $this->output->set_output($output);
-       //echo "<tr><td>". $saved['body'] ."</td><td>". $saved['createdDate'] ."</td></tr>";
     } else {
 
     }

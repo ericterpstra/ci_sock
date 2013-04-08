@@ -10,7 +10,7 @@ io.sockets.on('connection', function (socket) {
   // Let everyone know it's working
   socket.emit('startup', { message: 'I Am Working!!' });
 
-  socket.on('newPost', function (post,team) {
+  socket.on('newPost', function (post,team,sessionId) {
     //console.log(post);
     console.log('Broadcasting a post to team: ' + team.toString());
 

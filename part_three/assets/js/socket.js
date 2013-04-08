@@ -13,8 +13,12 @@ $(function(){
       console.log(data.message);
     },
 
+    // on 'broadcastNewPost' update the message list from other users
     updateMessages : function(data) {
-      if(data.team && data.team != 'admin'){
+      var isNotAdmin = !userIsAnAdmin();
+      var isAdminAndBroadcastAdmin =  (userIsAnAdmin() && data.team === 'admin');
+      if( ( !userIsAnAdmin() && data.team != 'admin') ||
+          ( userIsAnAdmin() && data.team === 'admin') ){
         App.showBroadcastedMessage(data.message);
       }
     },
@@ -24,9 +28,9 @@ $(function(){
     },
 
     joinRoom : function(){
-      var ciCookie = readCookie('ci_session');
-      if(ciCookie) {
-        MY_Socket.socket.emit('joinRoom',ciCookie);
+      var sessionId = readCookie('ci_session');
+      if(sessionId) {
+        MY_Socket.socket.emit('joinRoom',sessionId);
       } else {
         console.log('No session id found. Broadcast disabled.');
         //forward to logout url?
@@ -47,5 +51,15 @@ $(function(){
       if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
     }
     return null;
+  }
+
+  function userIsAnAdmin(){
+    var val = false;
+    $('.userTeamBadge').children().each(function(i,el){
+       if ($(el).text() == 'Admin'){
+         val = true;
+       }
+    });
+    return val;
   }
 });

@@ -53,6 +53,7 @@ class user_m extends CI_Model {
       $data['avatar'] = $this->session->userdata('avatar');
       $data['tagline'] = $this->session->userdata('tagline');
       $data['teamId'] = $this->session->userdata('teamId');
+      $data['isAdmin'] = $this->session->userdata('isAdmin');
       return $data;
     }
 
