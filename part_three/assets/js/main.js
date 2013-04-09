@@ -195,7 +195,7 @@ $(function () {
       App.$myMessages.prepend( result.myMessage );
 
       // Send socket.io notification
-      MY_Socket.sendNewPost( result.broadcastMessage, result.team, result.isAdmin );
+      MY_Socket.sendNewPost( result.broadcastMessage, result.team );
     },
 
     /**
