@@ -17,4 +17,4 @@ A refactored version of part one.  It includes the changes from part 2, but also
 
 The user interface is unchanged, but when a message is posted by a user, any other user with the same team ID will instantly recieve the message and have it posted in the team messages list.  Admins will recieve messages from all users, regardless of team ID.  
 
-Read More: _coming soon_
+Read More: [Live Updates in CodeIgniter with Socket.IO and Redis](http://ericterpstra.com/2013/04/live-updates-in-codeigniter-with-socket-io-and-redis/)
