@@ -8,22 +8,21 @@ class user_m extends CI_Model {
     function validate_user( $email, $password ) {
         // Build a query to retrieve the user's details
         // based on the received username and password
-        $this->db->from('user');
-        $this->db->where('email',$email );
-        $this->db->where( 'password', sha1($password) );
-        $login = $this->db->get()->result();
+      //SHA1 password
+      $password = sha1($password);
 
-        // The results of the query are stored in $login.
-        // If a value exists, then the user account exists and is validated
-        if ( is_array($login) && count($login) == 1 ) {
-            // Set the users details into the $details property of this class
+      $query = $this->db->query("SELECT * FROM user WHERE username = '$username' AND password = '$password' ");
+
+      if ($query->num_rows() > 0) {
+            $login = $query->result_array();
+            // Set the all of the users details into the $details property of this class
             $this->details = $login[0];
             // Call set_session to set the user's session vars via CodeIgniter
             $this->set_session();
             return true;
-        }
+      }
 
-        return false;
+    return false;
     }
 
     function set_session() {
@@ -31,13 +30,13 @@ class user_m extends CI_Model {
         // stores data in CodeIgniter's session storage.  Some of the values are built in
         // to CodeIgniter, others are added.  See CodeIgniter's documentation for details.
         $this->session->set_userdata( array(
-                'id'=>$this->details->id,
-                'name'=> $this->details->firstName . ' ' . $this->details->lastName,
-                'email'=>$this->details->email,
-                'avatar'=>$this->details->avatar,
-                'tagline'=>$this->details->tagline,
-                'isAdmin'=>$this->details->isAdmin,
-                'teamId'=>$this->details->teamId,
+                'id'=>$this->detailsid,
+                'name'=> $this->details['firstName'] . ' ' . $this->details['lastName'],
+                'email'=>$this->details['email'],
+                'avatar'=>$this->details['avatar'],
+                'tagline'=>$this->details['tagline'],
+                'isAdmin'=>$this->details['isAdmin'],
+                'teamId'=>$this->detail['steamId'],
                 'isLoggedIn'=>true
             )
         );
