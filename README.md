@@ -1,4 +1,4 @@
-#CodeIgniter + Socket.IO (with Redis) Sample Project
+# CodeIgniter + Socket.IO (with Redis) Sample Project
 
 
 ## Part One
